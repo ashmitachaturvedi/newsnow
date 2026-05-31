@@ -1,8 +1,11 @@
-function NewsCard() {
+function NewsCard({ title, description, image }) {
   return (
     <div className="card">
-      <h3>News Title</h3>
-      <p>News Description</p>
+      <img src={image} alt={title} />
+
+      <h3>{title}</h3>
+
+      <p>{description}</p>
     </div>
   );
 }
