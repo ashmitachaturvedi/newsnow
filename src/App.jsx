@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
+import "./App.css";
 import Home from "./pages/Home";
 import India from "./pages/India";
 import World from "./pages/World";

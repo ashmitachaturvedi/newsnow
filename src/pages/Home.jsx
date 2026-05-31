@@ -1,4 +1,20 @@
+import Navbar from "../components/Navbar";
+import SearchBar from "../components/SearchBar";
+import NewsCard from "../components/NewsCard";
+
 function Home(){
-    return <h1>Home</h1>;
+    return (
+    <>
+      <Navbar />
+
+      <h1>Breaking News</h1>
+
+      <SearchBar />
+
+      <NewsCard />
+      <NewsCard />
+      <NewsCard />
+    </>
+  );
 }
 export default Home;
