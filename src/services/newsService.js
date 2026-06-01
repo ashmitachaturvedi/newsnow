@@ -1,6 +1,4 @@
 const API_KEY = import.meta.env.VITE_GNEWS_API_KEY;
-console.log(import.meta.env);
-console.log("API KEY =", import.meta.env.VITE_GNEWS_API_KEY);
 
 export const getTopNews = async () => {
   try {
@@ -10,7 +8,20 @@ export const getTopNews = async () => {
 
     const data = await response.json();
 
-    console.log(data);
+    return data.articles || [];
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
+};
+
+export const getNewsBySearch = async (query) => {
+  try {
+    const response = await fetch(
+      `https://gnews.io/api/v4/search?q=${query}&lang=en&apikey=${API_KEY}`
+    );
+
+    const data = await response.json();
 
     return data.articles || [];
   } catch (error) {

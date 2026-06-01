@@ -4,36 +4,52 @@ import Navbar from "../components/Navbar";
 import SearchBar from "../components/SearchBar";
 import NewsCard from "../components/NewsCard";
 
-import { getTopNews } from "../services/newsService";
+import { getTopNews,getNewsBySearch } from "../services/newsService";
 
 function Home() {
   const [news, setNews] = useState([]);
+  const[loading,setLoading] = useState(false);
 
   useEffect(() => {
     const fetchNews = async () => {
+        setLoading(true);
+
       const articles = await getTopNews();
 
-      console.log("Articles received:", articles);
-      console.log("Length:", articles?.length);
-
-      // Sirf tab update karo jab articles mile hon
       if (articles && Array.isArray(articles) && articles.length > 0) {
         setNews(articles);
       }
+
+      setLoading(false);
     };
 
-    fetchNews();
+ fetchNews();
   }, []);
 
+  const handleSearch = async (query) => {
+    setLoading(true);
+
+    const articles = await getNewsBySearch(query);
+
+    if (articles && articles.length > 0) {
+        setNews(articles);
+  }
+  setLoading(false);
+};
   return (
     <>
       <Navbar />
 
       <h1>Breaking News</h1>
 
-      <SearchBar />
+      <SearchBar onSearch={handleSearch} />
+      {loading && <h2>Loading News...</h2>}
+
 
       <p>Total News: {news.length}</p>
+      {news.length === 0 && !loading && (
+        <h2>No News Found</h2>
+        )}
 
       {news.map((article, index) => (
         <NewsCard
