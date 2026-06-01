@@ -41,6 +41,7 @@ function Home() {
           title={article.title}
           description={article.description}
           image={article.image}
+          url={article.url}
         />
       ))}
     </>
