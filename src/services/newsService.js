@@ -29,3 +29,39 @@ export const getNewsBySearch = async (query) => {
     return [];
   }
 };
+
+export const getIndiaNews = async () => {
+  try {
+    const response = await fetch(
+      `https://gnews.io/api/v4/top-headlines?country=in&lang=en&apikey=${API_KEY}`
+    );
+
+    const data = await response.json();
+    return data.articles || [];
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
+};
+
+export const getWorldNews = async () => {
+  try {
+    const response = await fetch(
+      `https://gnews.io/api/v4/top-headlines?lang=en&apikey=${API_KEY}`
+    );
+
+    const data = await response.json();
+    return data.articles || [];
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
+};
+
+export const getUPSCNews = async () => {
+  return getNewsBySearch("UPSC");
+};
+
+export const getNTANews = async () => {
+  return getNewsBySearch("NTA OR JEE OR NEET");
+};
