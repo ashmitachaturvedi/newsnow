@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import NewsCard from "../components/NewsCard";
 import { getUPSCNews } from "../services/newsService";
 import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 
 function UPSC() {
   const [news, setNews] = useState([]);
@@ -19,7 +20,6 @@ function UPSC() {
     <>
     <Navbar/>
       <h1>UPSC News</h1>
-      <h2>Total News: {news.length}</h2>
 
       {news.map((article, index) => (
         <NewsCard
@@ -30,6 +30,7 @@ function UPSC() {
           url={article.url}
         />
       ))}
+      <Footer/>
     </>
   );
 }

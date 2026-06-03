@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import NewsCard from "../components/NewsCard";
 import { getWorldNews } from "../services/newsService";
 import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 
 function World() {
   const [news, setNews] = useState([]);
@@ -19,7 +20,6 @@ function World() {
     <>
     <Navbar />
       <h1>World News</h1>
-      <h2>Total News: {news.length}</h2>
 
       {news.map((article, index) => (
         <NewsCard
@@ -30,6 +30,7 @@ function World() {
           url={article.url}
         />
       ))}
+      <Footer/>
     </>
   );
 }

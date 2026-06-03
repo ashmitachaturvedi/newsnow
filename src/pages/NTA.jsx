@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import NewsCard from "../components/NewsCard";
 import { getNTANews } from "../services/newsService";
 import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 
 function NTA() {
   const [news, setNews] = useState([]);
@@ -19,7 +20,6 @@ function NTA() {
     <>
     <Navbar />
       <h1>NTA News</h1>
-      <h2>Total News: {news.length}</h2>
 
       {news.map((article, index) => (
         <NewsCard
@@ -30,6 +30,7 @@ function NTA() {
           url={article.url}
         />
       ))}
+      <Footer/>
     </>
   );
 }
