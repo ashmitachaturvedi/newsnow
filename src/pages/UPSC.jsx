@@ -19,6 +19,7 @@ function UPSC() {
     <>
     <Navbar/>
       <h1>UPSC News</h1>
+      <h2>Total News: {news.length}</h2>
 
       {news.map((article, index) => (
         <NewsCard

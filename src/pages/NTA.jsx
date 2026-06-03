@@ -19,6 +19,7 @@ function NTA() {
     <>
     <Navbar />
       <h1>NTA News</h1>
+      <h2>Total News: {news.length}</h2>
 
       {news.map((article, index) => (
         <NewsCard

@@ -19,6 +19,7 @@ function World() {
     <>
     <Navbar />
       <h1>World News</h1>
+      <h2>Total News: {news.length}</h2>
 
       {news.map((article, index) => (
         <NewsCard
