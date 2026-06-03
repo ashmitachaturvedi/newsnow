@@ -8,6 +8,9 @@ export const getTopNews = async () => {
 
     const data = await response.json();
 
+console.log("Total Articles:", data.totalArticles);
+console.log("Articles Returned:", data.articles?.length);
+
     return data.articles || [];
   } catch (error) {
     console.log(error);
@@ -47,9 +50,8 @@ export const getIndiaNews = async () => {
 export const getWorldNews = async () => {
   try {
     const response = await fetch(
-      `https://gnews.io/api/v4/top-headlines?lang=en&apikey=${API_KEY}`
-    );
-
+  `https://gnews.io/api/v4/top-headlines?country=in&lang=en&max=50&apikey=${API_KEY}`
+);
     const data = await response.json();
     return data.articles || [];
   } catch (error) {
