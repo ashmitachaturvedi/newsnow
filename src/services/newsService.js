@@ -1,21 +1,12 @@
 const API_KEY = import.meta.env.VITE_GNEWS_API_KEY;
-console.log("API KEY =", API_KEY);
-console.log("NEWS SERVICE VERSION 2");
 
 export const getTopNews = async () => {
   try {
-    console.log("Calling Render Backend...");
-
     const response = await fetch(
       "https://newsnow-68z3.onrender.com/api/top-news"
     );
 
-    console.log("Response Status:", response.status);
-
     const data = await response.json();
-
-    console.log("FULL DATA:", data);
-    console.log("Articles Returned:", data.articles?.length);
 
     return data.articles || [];
   } catch (error) {
