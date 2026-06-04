@@ -1,7 +1,28 @@
 function NewsCard({ title, description, image, url }) {
+
+  const saveArticle = () => {
+    const article = {
+      title,
+      description,
+      image,
+      url,
+    };
+
+    let savedNews =
+      JSON.parse(localStorage.getItem("savedNews")) || [];
+
+    savedNews.push(article);
+
+    localStorage.setItem(
+      "savedNews",
+      JSON.stringify(savedNews)
+    );
+
+    alert("News Saved!");
+  };
+
   return (
     <div className="card">
-
       <img src={image} alt={title} />
 
       <h3>{title}</h3>
@@ -11,6 +32,10 @@ function NewsCard({ title, description, image, url }) {
       <a href={url} target="_blank" rel="noreferrer">
         Read More →
       </a>
+
+      <button onClick={saveArticle}>
+        ⭐ Save
+      </button>
     </div>
   );
 }
