@@ -6,9 +6,11 @@ import Footer from "../components/Footer";
 
 function NTA() {
   const [news, setNews] = useState([]);
+  const[loading,setLoading] = useState([]);
 
   useEffect(() => {
     const fetchNews = async () => {
+      setLoading(true);
       const articles = await getNTANews();
       setNews(articles);
     };
@@ -20,6 +22,12 @@ function NTA() {
     <>
     <Navbar />
       <h1>NTA News</h1>
+      {loading && (
+        <>
+        <div className="spinner"></div>
+        <h2>Loading news....</h2>
+        </>
+      )}
 
       {news.map((article, index) => (
         <NewsCard

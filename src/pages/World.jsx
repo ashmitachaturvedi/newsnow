@@ -6,9 +6,11 @@ import Footer from "../components/Footer";
 
 function World() {
   const [news, setNews] = useState([]);
+  const[loading,setLoading] = useState([]);
 
   useEffect(() => {
     const fetchNews = async () => {
+      setLoading(true);
       const articles = await getWorldNews();
       setNews(articles);
     };
@@ -20,6 +22,12 @@ function World() {
     <>
     <Navbar />
       <h1>World News</h1>
+      {loading && (
+        <>
+        <div className="spinner"></div>
+        <h2>Loading news....</h2>
+        </>
+      )}
 
       {news.map((article, index) => (
         <NewsCard
