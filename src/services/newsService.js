@@ -1,4 +1,4 @@
-const API_KEY = import.meta.env.VITE_GNEWS_API_KEY;
+const BASE_URL = "https://newsnow-68z3.onrender.com";
 
 export const getTopNews = async () => {
   try {
@@ -18,7 +18,7 @@ export const getTopNews = async () => {
 export const getNewsBySearch = async (query) => {
   try {
     const response = await fetch(
-      `https://gnews.io/api/v4/search?q=${query}&lang=en&apikey=${API_KEY}`
+      `${BASE_URL}/api/search?q=${query}`
     );
 
     const data = await response.json();
@@ -33,10 +33,11 @@ export const getNewsBySearch = async (query) => {
 export const getIndiaNews = async () => {
   try {
     const response = await fetch(
-      `https://gnews.io/api/v4/top-headlines?country=in&lang=en&apikey=${API_KEY}`
+      `${BASE_URL}/api/india`
     );
 
     const data = await response.json();
+
     return data.articles || [];
   } catch (error) {
     console.log(error);
@@ -47,9 +48,11 @@ export const getIndiaNews = async () => {
 export const getWorldNews = async () => {
   try {
     const response = await fetch(
-  `https://gnews.io/api/v4/top-headlines?country=in&lang=en&max=50&apikey=${API_KEY}`
-);
+      `${BASE_URL}/api/world`
+    );
+
     const data = await response.json();
+
     return data.articles || [];
   } catch (error) {
     console.log(error);
@@ -58,9 +61,31 @@ export const getWorldNews = async () => {
 };
 
 export const getUPSCNews = async () => {
-  return getNewsBySearch("UPSC");
+  try {
+    const response = await fetch(
+      `${BASE_URL}/api/upsc`
+    );
+
+    const data = await response.json();
+
+    return data.articles || [];
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
 };
 
 export const getNTANews = async () => {
-  return getNewsBySearch("NTA OR JEE OR NEET");
+  try {
+    const response = await fetch(
+      `${BASE_URL}/api/nta`
+    );
+
+    const data = await response.json();
+
+    return data.articles || [];
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
 };
