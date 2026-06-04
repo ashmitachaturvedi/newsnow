@@ -20,7 +20,7 @@ nav a {
 }
 
 nav a:hover{
-  color:#4da6ff;
+  color:#a9c5e1;
 }
 
 
@@ -91,12 +91,6 @@ h1 {
 .read-more:hover{
   text-decoration:underline;
 }
-
-/* .active {
-  color: cyan;
-  font-weight: bold;
-  text-shadow: 0 0 10px cyan;
-} */
 
 .nav-links a {
   text-decoration: none;
