@@ -11,6 +11,7 @@ function Home() {
   const [news, setNews] = useState([]);
   const[loading,setLoading] = useState(false);
   const[error,setError] = useState("");
+  const[lastUpdated,setLastUpdated] = useState("");
 
   useEffect(() => {
     const fetchNews = async () => {
@@ -22,6 +23,7 @@ function Home() {
 
       if (articles &&  articles.length > 0) {
         setNews(articles);
+        setLastUpdated(new Date().toLocaleTimeString());
       }
       else{
         setError("No news found");
@@ -35,6 +37,11 @@ function Home() {
     };
 
  fetchNews();
+
+ const interval = setInterval(() => {
+  fetchNews();
+ },30000);
+ return () => clearInterval(interval);
   }, []);
 
   const handleSearch = async (query) => {
@@ -61,6 +68,7 @@ function Home() {
       <Navbar />
 
       <h1>Breaking News</h1>
+      <p>🔴 Live Updates Every 30 Seconds</p>
 
       <SearchBar onSearch={handleSearch} />
       {loading && (

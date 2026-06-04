@@ -1,6 +1,8 @@
 body {
   margin: 0;
   font-family: Arial, sans-serif;
+  background-color: #0d1117;
+  color: white;
 }
 
 nav {
@@ -42,7 +44,7 @@ input {
 }
 
 .card{
-   width:70%;
+  width:70%;
   margin:20px auto;
   padding:20px;
   border-radius:12px;
@@ -133,5 +135,32 @@ footer {
 @keyframes spin {
   100% {
     transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 768px) {
+
+  nav {
+    flex-direction: column;
+    padding: 15px;
+    gap: 10px;
+  }
+
+  .nav-links {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+  }
+
+  .card {
+    width: 90%;
+  }
+
+  .search {
+    width: 90%;
+  }
+
+  .card h3 {
+    font-size: 20px;
   }
 }
