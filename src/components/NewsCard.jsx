@@ -11,7 +11,15 @@ function NewsCard({ title, description, image, url }) {
     let savedNews =
       JSON.parse(localStorage.getItem("savedNews")) || [];
 
-    savedNews.push(article);
+      const alreadySaved = savedNews.some(
+    (item) => item.url === url
+  );
+
+  if (alreadySaved) {
+    alert("Already Saved!");
+    return;
+  }
+   savedNews.push(article);
 
     localStorage.setItem(
       "savedNews",

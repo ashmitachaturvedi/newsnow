@@ -42,6 +42,13 @@ function Navbar() {
         >
           NTA
         </Link>
+        
+        <Link
+          to="/saved"
+          className={location.pathname === "/saved" ? "active" : ""}
+        >
+          Saved
+        </Link>
       </div>
     </nav>
   );
