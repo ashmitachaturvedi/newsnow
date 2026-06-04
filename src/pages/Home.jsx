@@ -60,7 +60,7 @@ function Home() {
     <>
       <Navbar />
 
-      <h1>Breaking News</h1>
+      <h1>Breaking News V2</h1>
 
       <SearchBar onSearch={handleSearch} />
       {loading && (

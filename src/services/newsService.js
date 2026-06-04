@@ -1,19 +1,25 @@
 const API_KEY = import.meta.env.VITE_GNEWS_API_KEY;
+console.log("API KEY =", API_KEY);
+console.log("NEWS SERVICE VERSION 2");
 
 export const getTopNews = async () => {
   try {
+    console.log("Calling Render Backend...");
+
     const response = await fetch(
-      `https://gnews.io/api/v4/top-headlines?country=in&lang=en&apikey=${API_KEY}`
+      "https://newsnow-68z3.onrender.com/api/top-news"
     );
+
+    console.log("Response Status:", response.status);
 
     const data = await response.json();
 
-console.log("Total Articles:", data.totalArticles);
-console.log("Articles Returned:", data.articles?.length);
+    console.log("FULL DATA:", data);
+    console.log("Articles Returned:", data.articles?.length);
 
     return data.articles || [];
   } catch (error) {
-    console.log(error);
+    console.log("ERROR:", error);
     return [];
   }
 };
