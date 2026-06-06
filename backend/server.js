@@ -1,11 +1,79 @@
 const express = require("express");
 const cors = require("cors");
 const axios = require("axios");
+const connectDB = require("./config/db");
+const Bookmark = require("./model/Bookmark");
+const Parser = require("rss-parser");
+const parser = new Parser();
+
 require("dotenv").config();
 
 const app = express();
 
 app.use(cors());
+app.use(express.json());
+connectDB();
+
+app.get("/api/rss-news", async (req, res) => {
+  try {
+    const feed = await parser.parseURL(
+      "https://feeds.bbci.co.uk/news/rss.xml"
+    );
+
+    const articles = feed.items.map((item) => ({
+      title: item.title,
+      description: item.contentSnippet,
+      url: item.link,
+      image: null,
+    }));
+
+    res.json({
+      articles,
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+});
+
+app.post("/api/bookmarks", async (req, res) => {
+  try {
+    const bookmark = await Bookmark.create(req.body);
+
+    res.status(201).json(bookmark);
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+});
+
+app.get("/api/bookmarks", async (req, res) => {
+  try {
+    const bookmarks = await Bookmark.find();
+
+    res.json(bookmarks);
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+});
+
+app.delete("/api/bookmarks/:id", async (req, res) => {
+  try {
+    await Bookmark.findByIdAndDelete(req.params.id);
+
+    res.json({
+      message: "Bookmark deleted",
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+});
 
 const API_KEY = process.env.GNEWS_API_KEY;
 

@@ -1,45 +1,58 @@
 function NewsCard({ title, description, image, url }) {
 
-  const saveArticle = () => {
-    const article = {
-      title,
-      description,
-      image,
-      url,
-    };
+  const saveArticle = async () => {
+    try {
+      const article = {
+        title,
+        description,
+        image,
+        url,
+      };
 
-    let savedNews =
-      JSON.parse(localStorage.getItem("savedNews")) || [];
+      const response = await fetch(
+        "http://localhost:5000/api/bookmarks",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(article),
+        }
+      );
 
-      const alreadySaved = savedNews.some(
-    (item) => item.url === url
-  );
+      const data = await response.json();
 
-  if (alreadySaved) {
-    alert("Already Saved!");
-    return;
-  }
-   savedNews.push(article);
+      if (response.ok) {
+        alert("News Saved!");
+      } else {
+        alert(data.message);
+      }
 
-    localStorage.setItem(
-      "savedNews",
-      JSON.stringify(savedNews)
-    );
-
-    alert("News Saved!");
+    } catch (error) {
+      console.log(error);
+      alert("Failed to save news");
+    }
   };
 
   return (
     <div className="card">
-      <img src={image} alt={title} />
+
+      {image && (
+        <img
+          src={image}
+          alt={title}
+        />
+      )}
 
       <h3>{title}</h3>
 
       <p>{description}</p>
 
-      <a href={url} target="_blank" rel="noreferrer">
-        Read More →
-      </a>
+      {url && (
+        <a href={url} target="_blank" rel="noreferrer">
+          Read More →
+        </a>
+      )}
 
       <button onClick={saveArticle}>
         ⭐ Save

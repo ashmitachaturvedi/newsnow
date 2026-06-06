@@ -7,23 +7,42 @@ function Saved() {
   const [savedNews, setSavedNews] = useState([]);
 
   useEffect(() => {
-    const news =
-      JSON.parse(localStorage.getItem("savedNews")) || [];
+    const fetchBookmarks = async () => {
+      try {
+        const response = await fetch(
+          "http://localhost:5000/api/bookmarks"
+        );
 
-    setSavedNews(news);
+        const data = await response.json();
+
+        setSavedNews(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchBookmarks();
   }, []);
 
-  const removeArticle = (url) => {
-    const updatedNews = savedNews.filter(
-      (article) => article.url !== url
-    );
+  const removeBookmark = async (id) => {
+    try {
+      await fetch(
+        `http://localhost:5000/api/bookmarks/${id}`,
+        {
+          method: "DELETE",
+        }
+      );
 
-    localStorage.setItem(
-      "savedNews",
-      JSON.stringify(updatedNews)
-    );
+      setSavedNews(
+        savedNews.filter(
+          (article) => article._id !== id
+        )
+      );
 
-    setSavedNews(updatedNews);
+      alert("Bookmark Removed!");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -32,11 +51,13 @@ function Saved() {
 
       <h1>Saved Articles</h1>
 
+      <h3>Total Saved: {savedNews.length}</h3>
+
       {savedNews.length === 0 ? (
         <h2>No Saved Articles</h2>
       ) : (
-        savedNews.map((article, index) => (
-          <div key={index}>
+        savedNews.map((article) => (
+          <div key={article._id}>
             <NewsCard
               title={article.title}
               description={article.description}
@@ -45,7 +66,9 @@ function Saved() {
             />
 
             <button
-              onClick={() => removeArticle(article.url)}
+              onClick={() =>
+                removeBookmark(article._id)
+              }
             >
               ❌ Remove Bookmark
             </button>
