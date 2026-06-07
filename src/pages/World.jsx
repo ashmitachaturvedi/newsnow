@@ -9,10 +9,17 @@ function World() {
   const[loading,setLoading] = useState([]);
 
   useEffect(() => {
+
     const fetchNews = async () => {
+      try{
       setLoading(true);
       const articles = await getWorldNews();
       setNews(articles);
+      }catch(error){
+        console.log(error);
+      }finally{
+        setLoading(false);
+      }
     };
 
     fetchNews();

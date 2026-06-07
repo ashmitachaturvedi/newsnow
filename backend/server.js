@@ -10,27 +10,71 @@ require("dotenv").config();
 
 const app = express();
 
+const uniqueArticles = articles.filter(
+  (article, index, self) =>
+    index ===
+    self.findIndex(
+      (a) => a.url === article.url
+    )
+);
+
 app.use(cors());
 app.use(express.json());
+const formatArticles = (items) => {
+  return items.map((item) => ({
+    title: item.title,
+    description:
+      item.contentSnippet ||
+      item.content ||
+      "No description available",
+    url: item.link,
+    image: item.enclosure?.url || null,
+    pubDate: item.pubDate,
+  }));
+};
 connectDB();
 
 app.get("/api/rss-news", async (req, res) => {
   try {
-    const feed = await parser.parseURL(
+    const bbc = await parser.parseURL(
       "https://feeds.bbci.co.uk/news/rss.xml"
     );
 
-    const articles = feed.items.map((item) => ({
+    const hindu = await parser.parseURL(
+      "https://www.thehindu.com/news/feeder/default.rss"
+    );
+
+    const ndtv = await parser.parseURL(
+      "https://feeds.feedburner.com/ndtvnews-top-stories"
+    );
+
+    const articles = [
+      ...bbc.items,
+      ...hindu.items,
+      ...ndtv.items,
+    ].map((item) => ({
       title: item.title,
-      description: item.contentSnippet,
+      description:
+        item.contentSnippet ||
+        item.content ||
+        "No description available",
       url: item.link,
-      image: null,
+      image: item.enclosure?.url || null,
+      pubDate: item.pubDate,
     }));
+
+    articles.sort(
+      (a, b) =>
+        new Date(b.pubDate) -
+        new Date(a.pubDate)
+    );
 
     res.json({
       articles,
     });
   } catch (error) {
+    console.log(error);
+
     res.status(500).json({
       message: error.message,
     });
@@ -91,63 +135,148 @@ app.get("/api/top-news", async (req, res) => {
 
 app.get("/api/india", async (req, res) => {
   try {
-    const response = await axios.get(
-      `https://gnews.io/api/v4/top-headlines?country=in&lang=en&apikey=${API_KEY}`
+    const hindu = await parser.parseURL(
+      "https://www.thehindu.com/news/feeder/default.rss"
     );
 
-    res.json(response.data);
+    const ndtv = await parser.parseURL(
+      "https://feeds.feedburner.com/ndtvnews-top-stories"
+    );
+
+    const articles = [
+      ...formatArticles(hindu.items),
+      ...formatArticles(ndtv.items),
+    ];
+
+    articles.sort(
+      (a, b) =>
+        new Date(b.pubDate) -
+        new Date(a.pubDate)
+    );
+
+    res.json({
+      articles: articles.slice(0, 50),
+    });
   } catch (error) {
-    res.status(500).json({ message: "Failed to fetch India news" });
+    res.status(500).json({
+      message: error.message,
+    });
   }
 });
 
 app.get("/api/world", async (req, res) => {
   try {
-    const response = await axios.get(
-      `https://gnews.io/api/v4/top-headlines?lang=en&max=10&apikey=${API_KEY}`
+    const bbc = await parser.parseURL(
+      "https://feeds.bbci.co.uk/news/world/rss.xml"
     );
 
-    res.json(response.data);
+    const articles = formatArticles(
+      bbc.items
+    );
+
+    res.json({
+      articles: articles.slice(0, 50),
+    });
   } catch (error) {
-    res.status(500).json({ message: "Failed to fetch world news" });
+    res.status(500).json({
+      message: error.message,
+    });
   }
 });
 
 app.get("/api/search", async (req, res) => {
   try {
-    const query = req.query.q;
+    const query = req.query.q.toLowerCase();
 
-    const response = await axios.get(
-      `https://gnews.io/api/v4/search?q=${query}&lang=en&apikey=${API_KEY}`
+    const bbc = await parser.parseURL(
+      "https://feeds.bbci.co.uk/news/rss.xml"
     );
 
-    res.json(response.data);
+    const hindu = await parser.parseURL(
+      "https://www.thehindu.com/news/feeder/default.rss"
+    );
+
+    const ndtv = await parser.parseURL(
+      "https://feeds.feedburner.com/ndtvnews-top-stories"
+    );
+
+    const articles = [
+      ...bbc.items,
+      ...hindu.items,
+      ...ndtv.items,
+    ]
+      .map((item) => ({
+        title: item.title,
+        description:
+          item.contentSnippet ||
+          item.content ||
+          "No description available",
+        url: item.link,
+        image: item.enclosure?.url || null,
+        pubDate: item.pubDate,
+      }))
+      .filter(
+        (article) =>
+          article.title
+            ?.toLowerCase()
+            .includes(query) ||
+          article.description
+            ?.toLowerCase()
+            .includes(query)
+      );
+
+    res.json({
+      articles,
+    });
   } catch (error) {
-    res.status(500).json({ message: "Failed to search news" });
+    res.status(500).json({
+      message: error.message,
+    });
   }
 });
 
 app.get("/api/upsc", async (req, res) => {
   try {
-    const response = await axios.get(
-      `https://gnews.io/api/v4/search?q=UPSC&lang=en&apikey=${API_KEY}`
+    const bbc = await parser.parseURL(
+      "https://feeds.bbci.co.uk/news/world/rss.xml"
     );
 
-    res.json(response.data);
+    const hindu = await parser.parseURL(
+      "https://www.thehindu.com/news/feeder/default.rss"
+    );
+
+    const articles = [
+      ...formatArticles(bbc.items),
+      ...formatArticles(hindu.items),
+    ];
+
+    res.json({
+      articles: articles.slice(0, 50),
+    });
   } catch (error) {
-    res.status(500).json({ message: "Failed to fetch UPSC news" });
+    res.status(500).json({
+      message: error.message,
+    });
   }
 });
 
 app.get("/api/nta", async (req, res) => {
   try {
-    const response = await axios.get(
-      `https://gnews.io/api/v4/search?q=NTA OR JEE OR NEET&lang=en&apikey=${API_KEY}`
+    const hindu = await parser.parseURL(
+      "https://www.thehindu.com/education/feeder/default.rss"
     );
 
-    res.json(response.data);
+    const articles = formatArticles(
+      hindu.items
+    );
+
+    res.json({
+      articles: articles.slice(0, 50),
+    });
   } catch (error) {
-    res.status(500).json({ message: "Failed to fetch NTA news" });
+    res.status(500).json({
+      message: error.message,
+    });
   }
 });
 

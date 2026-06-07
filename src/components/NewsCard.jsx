@@ -37,12 +37,14 @@ function NewsCard({ title, description, image, url }) {
   return (
     <div className="card">
 
-      {image && (
-        <img
-          src={image}
-          alt={title}
-        />
-      )}
+      <img
+  src={
+    image ||
+    "https://via.placeholder.com/600x350?text=NewsNow"
+  }
+  alt={title}
+/>
+  
 
       <h3>{title}</h3>
 

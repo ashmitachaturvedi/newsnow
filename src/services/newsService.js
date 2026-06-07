@@ -1,4 +1,4 @@
-const BASE_URL = "https://newsnow-68z3.onrender.com";
+const BASE_URL = "http://localhost:5000";
 
 export const getTopNews = async () => {
   try {
@@ -31,61 +31,69 @@ export const getNewsBySearch = async (query) => {
 };
 
 export const getIndiaNews = async () => {
-  try {
-    const response = await fetch(
-      `${BASE_URL}/api/india`
-    );
+  return getTopNews();
+}
+//   try {
+//     const response = await fetch(
+//       `${BASE_URL}/api/india`
+//     );
 
-    const data = await response.json();
+//     const data = await response.json();
 
-    return data.articles || [];
-  } catch (error) {
-    console.log(error);
-    return [];
-  }
-};
+//     return data.articles || [];
+//   } catch (error) {
+//     console.log(error);
+//     return [];
+//   }
+// };
 
 export const getWorldNews = async () => {
-  try {
-    const response = await fetch(
-      `${BASE_URL}/api/world`
-    );
+  return getTopNews();
+}
+//   try {
+//     const response = await fetch(
+//       `${BASE_URL}/api/world`
+//     );
 
-    const data = await response.json();
+//     const data = await response.json();
 
-    return data.articles || [];
-  } catch (error) {
-    console.log(error);
-    return [];
-  }
-};
+//     return data.articles || [];
+//   } catch (error) {
+//     console.log(error);
+//     return [];
+//   }
+// };
 
 export const getUPSCNews = async () => {
-  try {
-    const response = await fetch(
-      `${BASE_URL}/api/upsc`
-    );
+  return getTopNews();
+}
+//   try {
+//     const response = await fetch(
+//       `${BASE_URL}/api/upsc`
+//     );
 
-    const data = await response.json();
+//     const data = await response.json();
 
-    return data.articles || [];
-  } catch (error) {
-    console.log(error);
-    return [];
-  }
-};
+//     return data.articles || [];
+//   } catch (error) {
+//     console.log(error);
+//     return [];
+//   }
+// };
 
 export const getNTANews = async () => {
-  try {
-    const response = await fetch(
-      `${BASE_URL}/api/nta`
-    );
+  return getTopNews();
+}
+//   try {
+//     const response = await fetch(
+//       `${BASE_URL}/api/nta`
+//     );
 
-    const data = await response.json();
+//     const data = await response.json();
 
-    return data.articles || [];
-  } catch (error) {
-    console.log(error);
-    return [];
-  }
-};
+//     return data.articles || [];
+//   } catch (error) {
+//     console.log(error);
+//     return [];
+//   }
+// };

@@ -10,9 +10,15 @@ function UPSC() {
 
   useEffect(() => {
     const fetchNews = async () => {
+      try{
       setLoading(true);
       const articles = await getUPSCNews();
       setNews(articles);
+      } catch(error){
+        console.log(error);
+      }finally{
+        setLoading(false);
+      }
     };
 
     fetchNews();

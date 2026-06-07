@@ -10,9 +10,15 @@ function NTA() {
 
   useEffect(() => {
     const fetchNews = async () => {
+      try{
       setLoading(true);
       const articles = await getNTANews();
       setNews(articles);
+      } catch(error){
+        console.log(error);
+      }finally{
+        setLoading(false);
+      }
     };
 
     fetchNews();

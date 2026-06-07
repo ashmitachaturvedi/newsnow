@@ -10,10 +10,17 @@ function India() {
 
   useEffect(() => {
     const fetchNews = async () => {
+      try{
       setLoading(true);
 
       const articles = await getIndiaNews();
+
       setNews(articles);
+      } catch(error){
+        console.log(error);
+      }finally{
+        setLoading(false);
+      }
     };
 
     fetchNews();
