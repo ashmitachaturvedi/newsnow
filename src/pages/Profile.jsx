@@ -2,23 +2,39 @@ import Navbar from "../components/Navbar";
 
 function Profile() {
   const user = JSON.parse(
-    localStorage.getItem("user")
+    localStorage.getItem("user") || "null"
   );
 
   return (
     <>
       <Navbar />
 
-      <div className="profile-card">
-        <h1>My Profile</h1>
+      <div className="profile-container">
+        <div className="profile-card">
 
-        <p>
-          <strong>Name:</strong> {user?.name}
-        </p>
+          <div className="profile-avatar">
+            {user?.name?.charAt(0).toUpperCase()}
+          </div>
 
-        <p>
-          <strong>Email:</strong> {user?.email}
-        </p>
+          <h1>{user?.name}</h1>
+
+          <p>{user?.email}</p>
+
+          <div className="profile-info">
+            <h3>Account Information</h3>
+
+            <p>
+              <strong>Name:</strong>{" "}
+              {user?.name}
+            </p>
+
+            <p>
+              <strong>Email:</strong>{" "}
+              {user?.email}
+            </p>
+          </div>
+
+        </div>
       </div>
     </>
   );

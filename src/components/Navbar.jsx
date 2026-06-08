@@ -66,7 +66,14 @@ const user = JSON.parse(
 
   {user ? (
     <>
-       <Link to="/profile">Profile</Link>
+       <Link 
+       to="/profile"
+       className={
+        location.pathname === "/profile"
+        ? "active"
+        : ""
+       }
+       >Profile</Link>
 
       <button onClick={logout}>
         Logout
