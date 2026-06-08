@@ -5,6 +5,7 @@ A modern news aggregation platform built with React, Node.js, Express, MongoDB, 
 ## 🚀 Live Demo
 
 Frontend: https://newsnow-7oq1.vercel.app
+Backend: https://newsnow-68z3.onrender.com
 
 ## ✨ Features
 
@@ -87,7 +88,7 @@ src/
 Clone the repository:
 
 ```bash
-git clone <your-repository-url>
+git clone https://github.com/ashmitachaturvedi/newsnow.git
 ```
 
 Install dependencies:
