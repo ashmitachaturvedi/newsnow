@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 function Signup() {
   const navigate = useNavigate();
@@ -25,19 +26,19 @@ function Signup() {
     const { name, email, password } = formData;
 
     if (!name || !email || !password) {
-      alert("All fields are required");
+      toast.error("All fields are required");
       return;
     }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (!emailRegex.test(email)) {
-      alert("Please enter a valid email");
+      toast.error("Please enter a valid email");
       return;
     }
 
     if (password.length < 6) {
-      alert("Password must be at least 6 characters");
+      toast.error("Password must be at least 6 characters");
       return;
     }
 
@@ -58,14 +59,14 @@ function Signup() {
       const data = await response.json();
 
       if (response.ok) {
-        alert(data.message);
+        toast.success(data.message);
         navigate("/login");
       } else {
-        alert(data.message);
+        toast.error(data.message);
       }
     } catch (error) {
       console.log(error);
-      alert("Something went wrong");
+      toast.error("Something went wrong");
     } finally {
       setLoading(false);
     }

@@ -10,10 +10,18 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Profile from "./pages/Profile";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   return (
     <BrowserRouter>
+
+    <Toaster
+    position="top-right"
+    toastOptions={{
+      duration:3000,
+    }}
+    />
       <Routes>
        <Route
        path="/"
@@ -33,66 +41,61 @@ function App() {
        }
        />
 
-<Route 
-  path="/world"
-  element={
-    <ProtectedRoute>
-      <World />
-    </ProtectedRoute>
-  }
-/>
+      <Route 
+       path="/world"
+       element={
+        <ProtectedRoute>
+        <World />
+        </ProtectedRoute>
+      }
+      />
+      
+      <Route
+      path="/upsc"
+      element={
+      <ProtectedRoute>
+        <UPSC />
+        </ProtectedRoute>
+      }
+      />
 
-<Route
-  path="/upsc"
-  element={
-    <ProtectedRoute>
-      <UPSC />
-    </ProtectedRoute>
-  }
-/>
-
-<Route
-  path="/nta"
-  element={
-    <ProtectedRoute>
-      <NTA />
-    </ProtectedRoute>
-  }
-/>
-
-<Route
-  path="/saved"
-  element={
-    <ProtectedRoute>
-      <Saved />
-    </ProtectedRoute>
-  }
-/>
-
-<Route
-  path="/profile"
-  element={
-    <ProtectedRoute>
-      <Profile />
-    </ProtectedRoute>
-  }
-/>
-
-<Route path="/login" 
-  element={<Login />} 
-        
-/>
-
-
-<Route path="/signup" 
-  element={<Signup />} 
-        
-/>
-
-
-    </Routes>
-  </BrowserRouter>
-  );
-}
+      <Route
+      path="/nta"
+      element={
+      <ProtectedRoute>
+        <NTA />
+        </ProtectedRoute>
+      }
+      />
+      
+      <Route
+      path="/saved"
+      element={
+      <ProtectedRoute>
+        <Saved />
+        </ProtectedRoute>
+      }
+      />
+      
+      <Route
+      path="/profile"
+      element={
+      <ProtectedRoute>
+        <Profile />
+        </ProtectedRoute>
+      }
+      />
+      
+      <Route path="/login" 
+      element={<Login />} 
+      />
+      
+      <Route path="/signup" 
+      element={<Signup />} 
+      />
+      </Routes>
+      </BrowserRouter>
+      );
+    }
 
 export default App;

@@ -1,7 +1,9 @@
 import { Link, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function Navbar() {
-  const location = useLocation();
+const location = useLocation();
+const navigate = useNavigate();
 
 const user = JSON.parse(
   localStorage.getItem("user") || "null"
@@ -10,7 +12,7 @@ const user = JSON.parse(
   const logout = () => {
   localStorage.removeItem("token");
   localStorage.removeItem("user");
-  window.location.href = "/login";
+  navigate("/login");
 };
 
   return (

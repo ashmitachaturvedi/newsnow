@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import toast from "react-hot-toast";
 
 function Login() {
   const navigate = useNavigate();
@@ -24,14 +25,14 @@ function Login() {
     const { email, password } = formData;
 
     if (!email || !password) {
-      alert("All fields are required");
+      toast.error("All fields are required");
       return;
     }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (!emailRegex.test(email)) {
-      alert("Please enter a valid email");
+      toast.error("Please enter a valid email");
       return;
     }
 
@@ -64,11 +65,11 @@ function Login() {
 
         navigate("/");
       } else {
-        alert(data.message);
+        toast.success("Login successful");
       }
     } catch (error) {
       console.log(error);
-      alert("Something went wrong");
+      toast.error(data.message);
     } finally {
       setLoading(false);
     }
