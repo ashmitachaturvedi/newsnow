@@ -1,16 +1,124 @@
-# React + Vite
+# 📰 NewsNow
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern news aggregation platform built with React, Node.js, Express, MongoDB, and JWT Authentication.
 
-Currently, two official plugins are available:
+## 🚀 Live Demo
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Frontend: https://newsnow-7oq1.vercel.app
 
-## React Compiler
+## ✨ Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+* 🔐 JWT Authentication (Login & Signup)
+* 📰 RSS News Aggregation
+* 🔍 Search News Articles
+* ⭐ Save & Manage Bookmarks
+* 🛡 Protected Routes
+* 📱 Responsive UI
+* ☁️ MongoDB Atlas Database
+* 🚀 Render Backend Deployment
+* ⚡ Vercel Frontend Deployment
 
-## Expanding the ESLint configuration
+## 🛠 Tech Stack
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### Frontend
+
+* React.js
+* React Router DOM
+* CSS
+
+### Backend
+
+* Node.js
+* Express.js
+* JWT Authentication
+* Bcrypt.js
+* RSS Parser
+
+### Database
+
+* MongoDB Atlas
+* Mongoose
+
+## 📂 Project Structure
+
+backend/
+
+* config/
+* middleware/
+* model/
+* server.js
+
+src/
+
+* components/
+* pages/
+* services/
+
+## 🔑 Authentication Flow
+
+1. User Signup
+2. Password Hashing using Bcrypt
+3. User Login
+4. JWT Token Generation
+5. Protected Routes
+6. Bookmark Management
+
+## 📸 Features Preview
+
+### Home Page
+
+* Live RSS News Feed
+* Search Functionality
+
+### Authentication
+
+* Login Validation
+* Signup Validation
+* JWT Based Authentication
+
+### Bookmarks
+
+* Save Articles
+* Remove Saved Articles
+* User-Specific Bookmarks
+
+## ⚙️ Installation
+
+Clone the repository:
+
+```bash
+git clone <your-repository-url>
+```
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Run frontend:
+
+```bash
+npm run dev
+```
+
+Run backend:
+
+```bash
+node server.js
+```
+
+## 🌟 Future Improvements
+
+* Dark / Light Mode
+* User Profile Page
+* Real News Image Extraction
+* Toast Notifications
+* Forgot Password Feature
+
+## 👩‍💻 Author
+
+Ashmita Chaturvedi
+
+Built as a full-stack project using React, Express, MongoDB, and JWT Authentication.
+
