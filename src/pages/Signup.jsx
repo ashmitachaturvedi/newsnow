@@ -18,7 +18,22 @@ function Signup() {
   const handleSubmit = async (e) => {
   e.preventDefault();
 
-  console.log("FORM DATA:", formData);
+  if (!name || !email || !password) {
+    alert("All fields are required");
+    return;
+  }
+
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  if (!emailRegex.test(email)) {
+    alert("Please enter a valid email");
+    return;
+  }
+
+  if (password.length < 6) {
+    alert("Password must be at least 6 characters");
+    return;
+  }
 
   try {
     const response = await fetch(

@@ -19,6 +19,20 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const { email, password } = formData;
+
+if (!email || !password) {
+  alert("All fields are required");
+  return;
+}
+
+const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+if (!emailRegex.test(email)) {
+  alert("Please enter a valid email");
+  return;
+}
+
     const response = await fetch(
       "https://newsnow-68z3.onrender.com/api/login",
       {
