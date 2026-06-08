@@ -48,7 +48,6 @@ app.get("/api/rss-news", async (req, res) => {
     const bbc = await parser.parseURL(
       "https://feeds.bbci.co.uk/news/rss.xml"
     );
-
     const hindu = await parser.parseURL(
       "https://www.thehindu.com/news/feeder/default.rss"
     );
@@ -68,7 +67,10 @@ app.get("/api/rss-news", async (req, res) => {
         item.content ||
         "No description available",
       url: item.link,
-      image: item.enclosure?.url || null,
+      image: item.enclosure?.url || 
+             item.thumbnail ||
+             item.image ||
+             null,
       pubDate: item.pubDate,
     }));
 

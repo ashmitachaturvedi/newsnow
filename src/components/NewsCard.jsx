@@ -12,7 +12,7 @@ function NewsCard({ title, description, image, url,showSaveButton = true, }) {
       const token = localStorage.getItem("token");
 
       const response = await fetch(
-        "http://localhost:5000/api/bookmarks",
+        "https://newsnow-68z3.onrender.com/api/bookmarks",
         {
           method: "POST",
           headers: {
@@ -43,7 +43,7 @@ function NewsCard({ title, description, image, url,showSaveButton = true, }) {
       <img
   src={
     image ||
-    "https://via.placeholder.com/600x350?text=NewsNow"
+    "https://dummyimage.com/600x350/1e293b/ffffff&text=NewsNow"
   }
   alt={title}
 />

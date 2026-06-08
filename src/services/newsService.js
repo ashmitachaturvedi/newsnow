@@ -1,9 +1,9 @@
-const BASE_URL = "http://localhost:5000";
+const BASE_URL = "https://newsnow-68z3.onrender.com";
 
 export const getTopNews = async () => {
   try {
     const response = await fetch(
-      "http://localhost:5000/api/rss-news"
+      "https://newsnow-68z3.onrender.com/api/rss-news"
     );
 
     const data = await response.json();

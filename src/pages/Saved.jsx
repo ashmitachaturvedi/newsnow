@@ -12,7 +12,7 @@ function Saved() {
         const token = localStorage.getItem("token");
 
         const response = await fetch(
-          "http://localhost:5000/api/bookmarks",
+          "http:/newsnow-68z3.onrender.com/api/bookmarks",
           {
             headers: {
       authorization: token,
@@ -36,7 +36,7 @@ function Saved() {
       const token = localStorage.getItem("token");
 
       await fetch(
-        `http://localhost:5000/api/bookmarks/${id}`,
+        `https://newsnow-68z3.onrender.com/api/bookmarks/${id}`,
         {
           method: "DELETE",
            headers: {
