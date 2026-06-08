@@ -1,13 +1,15 @@
 import { useState } from "react";
-import loginImage from "../assets/news.png";
-import { useNavigate,Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 function Login() {
-    const navigate = useNavigate();
-    const [formData, setFormData] = useState({
+  const navigate = useNavigate();
+
+  const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
+
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     setFormData({
@@ -21,90 +23,107 @@ function Login() {
 
     const { email, password } = formData;
 
-if (!email || !password) {
-  alert("All fields are required");
-  return;
-}
+    if (!email || !password) {
+      alert("All fields are required");
+      return;
+    }
 
-const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-if (!emailRegex.test(email)) {
-  alert("Please enter a valid email");
-  return;
-}
+    if (!emailRegex.test(email)) {
+      alert("Please enter a valid email");
+      return;
+    }
 
-    const response = await fetch(
-      "https://newsnow-68z3.onrender.com/api/login",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
+    try {
+      setLoading(true);
+
+      const response = await fetch(
+        "https://newsnow-68z3.onrender.com/api/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
+
+      const data = await response.json();
+
+      if (response.ok) {
+        localStorage.setItem(
+          "token",
+          data.token
+        );
+
+        localStorage.setItem(
+          "user",
+          JSON.stringify(data.user)
+        );
+
+        navigate("/");
+      } else {
+        alert(data.message);
       }
-    );
-
-    const data = await response.json();
-
-    if (response.ok) {
-      localStorage.setItem(
-        "token",
-        data.token
-      );
-
-      localStorage.setItem(
-        "user",
-        JSON.stringify(data.user)
-      );
-
-      navigate("/");
-
-    } else {
-      alert(data.message);
+    } catch (error) {
+      console.log(error);
+      alert("Something went wrong");
+    } finally {
+      setLoading(false);
     }
   };
 
-return (
-  <div className="auth-container">
-    <div className="auth-card">
+  return (
+    <div className="auth-container">
+      <div className="auth-card">
 
-      <h2 className="brand">
-        NewsNow
-      </h2>
+        <h2 className="brand">
+          NewsNow
+        </h2>
 
-      <h1>Login</h1>
+        <h1>Login</h1>
 
-      <form
-        className="auth-form"
-        onSubmit={handleSubmit}
-      >
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          autoComplete="email"
-          onChange={handleChange}
-        />
+        <form
+          className="auth-form"
+          onSubmit={handleSubmit}
+        >
+          <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            autoComplete="email"
+            onChange={handleChange}
+          />
 
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          autoComplete="current-password"
-          onChange={handleChange}
-        />
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            autoComplete="current-password"
+            onChange={handleChange}
+          />
 
-        <button type="submit">
-          Login
-        </button>
-      </form>
+          <button
+            type="submit"
+            disabled={loading}
+          >
+            {loading
+              ? "Logging in..."
+              : "Login"}
+          </button>
+        </form>
 
-      <p className="auth-link">
-        New user? <Link to="/signup">Sign Up</Link>
-      </p>
+        <p className="auth-link">
+          New user?
+          <Link to="/signup">
+            {" "}Sign Up
+          </Link>
+        </p>
 
+      </div>
     </div>
-  </div>
-);
-} 
+  );
+}
+
 export default Login;

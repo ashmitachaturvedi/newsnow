@@ -4,7 +4,7 @@ function Navbar() {
   const location = useLocation();
 
 const user = JSON.parse(
-  localStorage.getItem("user")
+  localStorage.getItem("user") || "null"
 );
 
   const logout = () => {
@@ -53,12 +53,14 @@ const user = JSON.parse(
     NTA
   </Link>
 
+{user && (
   <Link
     to="/saved"
     className={location.pathname === "/saved" ? "active" : ""}
   >
     Saved
   </Link>
+)}
 
   {user ? (
     <>
