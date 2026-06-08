@@ -8,13 +8,38 @@ const parser = new Parser();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("./model/User");
+const cheerio = require("cheerio");
 const authMiddleware =
 require("./middleware/authMiddleware");
 
 require("dotenv").config();
 
 const app = express();
+const getArticleImage = async (url) => {
+  try {
+    console.log("CHecking:",url);
+    const { data } = await axios.get(url, {
+      timeout: 5000,
+      headers: {
+        "User-Agent":
+          "Mozilla/5.0",
+      },
+    });
 
+    const $ = cheerio.load(data);
+
+    const image =
+      $('meta[property="og:image"]').attr("content") ||
+      $('meta[name="twitter:image"]').attr("content");
+
+      console.log("IMAGE FOUND:",image);
+
+    return image || null;
+  } catch (error) {
+    console.log("SCRAPE ERROR:",error.message);
+    return null;
+  }
+};
 
 app.use(cors());
 app.use(express.json());
@@ -56,23 +81,25 @@ app.get("/api/rss-news", async (req, res) => {
       "https://feeds.feedburner.com/ndtvnews-top-stories"
     );
 
-    const articles = [
+    const rawArticles = [
       ...bbc.items,
       ...hindu.items,
       ...ndtv.items,
-    ].map((item) => ({
-      title: item.title,
-      description:
+    ];
+    const articles = await Promise.all(
+      rawArticles.map(async(item) => ({
+        title: item.title,
+        description:
         item.contentSnippet ||
         item.content ||
-        "No description available",
-      url: item.link,
-      image: item.enclosure?.url || 
-             item.thumbnail ||
-             item.image ||
-             null,
-      pubDate: item.pubDate,
-    }));
+        "No desciption available",
+        url: item.link,
+        image:await getArticleImage(
+          item.link
+        ),
+        pubDate:item.pubDate,
+      }))
+    );
 
     articles.sort(
       (a, b) =>
@@ -134,7 +161,7 @@ app.get("/api/bookmarks", authMiddleware, async (req, res) => {
 
 app.delete("/api/bookmarks/:id", authMiddleware, async (req, res) => {
   try {
-    await Bookmark.findByOneAndDelete({
+    await Bookmark.findOneAndDelete({
         _id: req.params.id,
         userId:req.user.id,
     });

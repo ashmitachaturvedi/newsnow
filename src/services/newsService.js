@@ -3,7 +3,7 @@ const BASE_URL = "https://newsnow-68z3.onrender.com";
 export const getTopNews = async () => {
   try {
     const response = await fetch(
-      "https://newsnow-68z3.onrender.com/api/rss-news"
+      `${BASE_URL}/api/rss-news`
     );
 
     const data = await response.json();

@@ -21,6 +21,9 @@ function Home() {
 
       const articles = await getTopNews();
 
+      console.log("FIRST ARTICLE");
+console.log(articles[0]);
+
       if (articles &&  articles.length > 0) {
         setNews(articles);
         setLastUpdated(new Date().toLocaleTimeString());
@@ -30,6 +33,7 @@ function Home() {
       }
     }
     catch(err){
+      console.log(err);
       setError("Unable to load news");
     }finally{
       setLoading(false);
