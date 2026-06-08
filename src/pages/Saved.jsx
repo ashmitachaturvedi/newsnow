@@ -9,8 +9,15 @@ function Saved() {
   useEffect(() => {
     const fetchBookmarks = async () => {
       try {
+        const token = localStorage.getItem("token");
+
         const response = await fetch(
-          "http://localhost:5000/api/bookmarks"
+          "http://localhost:5000/api/bookmarks",
+          {
+            headers: {
+      authorization: token,
+    },
+  }
         );
 
         const data = await response.json();
@@ -26,10 +33,15 @@ function Saved() {
 
   const removeBookmark = async (id) => {
     try {
+      const token = localStorage.getItem("token");
+
       await fetch(
         `http://localhost:5000/api/bookmarks/${id}`,
         {
           method: "DELETE",
+           headers: {
+      authorization: token,
+    },
         }
       );
 
@@ -63,6 +75,7 @@ function Saved() {
               description={article.description}
               image={article.image}
               url={article.url}
+              showSaveButton={false}
             />
 
             <button

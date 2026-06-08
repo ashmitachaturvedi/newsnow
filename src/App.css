@@ -29,12 +29,6 @@ nav h2 {
   margin-right: auto;
 }
 
-input {
-  width: 60%;
-  padding: 10px;
-  margin: 20px;
-}
-
 .search{
   width:60%;
   padding: 12px;
@@ -162,7 +156,7 @@ footer {
 
 button {
   margin-top: 10px;
-  padding: 10px 16px;
+  padding: 10px;
   border: none;
   border-radius: 8px;
   cursor: pointer;
@@ -170,4 +164,111 @@ button {
 
 button:hover {
   opacity: 0.9;
+}
+
+.brand {
+  text-align: center;
+  color: #00e5ff;
+  margin-bottom: 10px;
+  font-size:1.5rem;
+}
+
+.auth-container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: linear-gradient(
+      rgba(10, 15, 30, 0.75),
+      rgba(10, 15, 30, 0.75)
+    ),
+    url("/login-bg.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.auth-card {
+  width: 380px;
+  padding: 50px;
+  border-radius: 20px;
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+  text-align: center;
+}
+
+.brand {
+  color: #00e5ff;
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.auth-card h1 {
+  color: white;
+  margin-bottom: 30px;
+  font-size: 2.5rem;
+  line-height:1.2;
+}
+
+.auth-form {
+  width: 100%;
+}
+
+.auth-form input {
+  width: 100%;
+  height:52px;
+  padding: 0 16px;
+  margin-bottom: 18px;
+
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+
+  background: rgba(255, 255, 255, 0.08);
+
+  color: white;
+  font-size:16px;
+  box-sizing: border-box;
+}
+
+.auth-form input::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 15px;
+
+}
+
+.auth-form input:focus {
+  outline: none;
+  border: 1px solid #00e5ff;
+  box-shadow: 0 0 10px rgba(0, 229, 255, 0.4);
+}
+
+.auth-form button {
+  width: 100px;
+  padding: 15px;
+  border: none;
+  border-radius: 12px;
+  background: #00e5ff;
+  color: #111827;
+  font-weight: 700;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+  margin:10px auto 0;
+}
+
+.auth-form button:hover {
+  transform: translateY(-2px);
+  box-shadow:0 8px 20px rgba(0,212,255,0.3);
+}
+
+.auth-link {
+  margin-top: 20px;
+  color: white;
+}
+
+.auth-link a {
+  color: #00e5ff;
+  text-decoration: none;
+  font-weight: 600;
 }

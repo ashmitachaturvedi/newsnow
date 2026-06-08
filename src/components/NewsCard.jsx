@@ -1,4 +1,4 @@
-function NewsCard({ title, description, image, url }) {
+function NewsCard({ title, description, image, url,showSaveButton = true, }) {
 
   const saveArticle = async () => {
     try {
@@ -9,12 +9,15 @@ function NewsCard({ title, description, image, url }) {
         url,
       };
 
+      const token = localStorage.getItem("token");
+
       const response = await fetch(
         "http://localhost:5000/api/bookmarks",
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            authorization: token,
           },
           body: JSON.stringify(article),
         }
@@ -55,10 +58,12 @@ function NewsCard({ title, description, image, url }) {
           Read More →
         </a>
       )}
-
-      <button onClick={saveArticle}>
+      {showSaveButton && (
+        <button onClick={saveArticle}>
         ⭐ Save
       </button>
+      )}
+      
     </div>
   );
 }
