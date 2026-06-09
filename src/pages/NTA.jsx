@@ -6,7 +6,7 @@ import Footer from "../components/Footer";
 
 function NTA() {
   const [news, setNews] = useState([]);
-  const[loading,setLoading] = useState([]);
+  const[loading,setLoading] = useState(false);
 
   useEffect(() => {
     const fetchNews = async () => {

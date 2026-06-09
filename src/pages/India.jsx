@@ -6,7 +6,7 @@ import Footer from "../components/Footer";
 
 function India() {
   const [news, setNews] = useState([]);
-  const [loading,setLoading] = useState([]);
+  const [loading,setLoading] = useState(false);
 
   useEffect(() => {
     const fetchNews = async () => {
@@ -14,7 +14,7 @@ function India() {
       setLoading(true);
 
       const articles = await getIndiaNews();
-
+      console.log("INDIA ARTICLES:", articles);
       setNews(articles);
       } catch(error){
         console.log(error);

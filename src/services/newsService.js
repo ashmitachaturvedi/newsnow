@@ -31,69 +31,61 @@ export const getNewsBySearch = async (query) => {
 };
 
 export const getIndiaNews = async () => {
-  return getTopNews();
-}
-//   try {
-//     const response = await fetch(
-//       `${BASE_URL}/api/india`
-//     );
+  try {
+    const response = await fetch(
+      `${BASE_URL}/api/india`
+    );
 
-//     const data = await response.json();
+    const data = await response.json();
 
-//     return data.articles || [];
-//   } catch (error) {
-//     console.log(error);
-//     return [];
-//   }
-// };
+    return data.articles || [];
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
+};
 
 export const getWorldNews = async () => {
-  return getTopNews();
-}
-//   try {
-//     const response = await fetch(
-//       `${BASE_URL}/api/world`
-//     );
+  try {
+    const response = await fetch(
+      `${BASE_URL}/api/world`
+    );
 
-//     const data = await response.json();
+    const data = await response.json();
 
-//     return data.articles || [];
-//   } catch (error) {
-//     console.log(error);
-//     return [];
-//   }
-// };
+    return data.articles || [];
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
+};
 
 export const getUPSCNews = async () => {
-  return getTopNews();
-}
-//   try {
-//     const response = await fetch(
-//       `${BASE_URL}/api/upsc`
-//     );
+  try {
+    const response = await fetch(
+      `${BASE_URL}/api/upsc`
+    );
 
-//     const data = await response.json();
+    const data = await response.json();
 
-//     return data.articles || [];
-//   } catch (error) {
-//     console.log(error);
-//     return [];
-//   }
-// };
+    return data.articles || [];
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
+};
 
 export const getNTANews = async () => {
-  return getTopNews();
-}
-//   try {
-//     const response = await fetch(
-//       `${BASE_URL}/api/nta`
-//     );
+  try {
+    const response = await fetch(
+      `${BASE_URL}/api/nta`
+    );
 
-//     const data = await response.json();
+    const data = await response.json();
 
-//     return data.articles || [];
-//   } catch (error) {
-//     console.log(error);
-//     return [];
-//   }
-// };
+    return data.articles || [];
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
+};

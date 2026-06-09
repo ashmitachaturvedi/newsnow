@@ -17,12 +17,10 @@ require("dotenv").config();
 const app = express();
 const getArticleImage = async (url) => {
   try {
-    console.log("CHecking:",url);
     const { data } = await axios.get(url, {
-      timeout: 5000,
+      timeout: 2000,
       headers: {
-        "User-Agent":
-          "Mozilla/5.0",
+        "User-Agent": "Mozilla/5.0",
       },
     });
 
@@ -32,14 +30,13 @@ const getArticleImage = async (url) => {
       $('meta[property="og:image"]').attr("content") ||
       $('meta[name="twitter:image"]').attr("content");
 
-      console.log("IMAGE FOUND:",image);
-
     return image || null;
   } catch (error) {
-    console.log("SCRAPE ERROR:",error.message);
+    console.log("SCRAPE ERROR:", error.message);
     return null;
   }
 };
+
 
 app.use(cors());
 app.use(express.json());
@@ -85,8 +82,8 @@ app.get("/api/rss-news", async (req, res) => {
       ...bbc.items,
       ...hindu.items,
       ...ndtv.items,
-    ];
-    const articles = await Promise.all(
+    ].slice(0,50);
+    const articles = await Promise.allSettled(
       rawArticles.map(async(item) => ({
         title: item.title,
         description:
@@ -100,6 +97,9 @@ app.get("/api/rss-news", async (req, res) => {
         pubDate:item.pubDate,
       }))
     );
+    const finalArticles = articles
+    .filter((a) => a.status === "fulfilled")
+    .map((a) => a.value);
 
     articles.sort(
       (a, b) =>
@@ -108,7 +108,7 @@ app.get("/api/rss-news", async (req, res) => {
     );
 
     res.json({
-      articles,
+      articles:finalArticles,
     });
   } catch (error) {
     console.log(error);
@@ -310,13 +310,20 @@ app.post("/api/login", async (req, res) => {
 
 app.get("/api/india", async (req, res) => {
   try {
+    console.log("Fetching hindu news....")
     const hindu = await parser.parseURL(
       "https://www.thehindu.com/news/feeder/default.rss"
     );
+    console.log(hindu.items.length);
+
+      console.log("Fetching NDTV...");
 
     const ndtv = await parser.parseURL(
       "https://feeds.feedburner.com/ndtvnews-top-stories"
     );
+    console.log("NDTV items:", ndtv.items.length);
+
+    
 
     const articles = [
       ...formatArticles(hindu.items),
@@ -333,8 +340,11 @@ app.get("/api/india", async (req, res) => {
       articles: articles.slice(0, 50),
     });
   } catch (error) {
+    console.error(error);
+
     res.status(500).json({
-      message: error.message,
+      message: error.message  || "Unknown error ",
+      error:String(error),
     });
   }
 });
