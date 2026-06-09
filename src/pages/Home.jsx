@@ -71,8 +71,8 @@ console.log(articles[0]);
     <>
       <Navbar />
 
-      <h1>Breaking News</h1>
-      <p>🔴 Live Updates Every 30 Seconds</p>
+      <h1>📰 NewsNow</h1>
+      <p>Live News Updates From Around The World</p>
 
       <SearchBar onSearch={handleSearch} />
       {loading && (

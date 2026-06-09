@@ -40,14 +40,16 @@ function NewsCard({ title, description, image, url,showSaveButton = true, }) {
   return (
     <div className="card">
 
-     <img
-  src={image || "https://placehold.co/600x350?text=News"}
-  alt={title}
-  onError={(e) => {
-    e.target.src =
-      "https://placehold.co/600x350?text=News";
-  }}
-/> 
+    {image && (
+  <img
+    src={image}
+    alt=""
+    onError={(e) => {
+      e.target.style.display = "none";
+    }}
+  />
+)}
+  
   
 
       <h3>{title}</h3>
