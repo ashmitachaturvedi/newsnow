@@ -94,7 +94,7 @@ server/
 
 Clone the repository:
 
-git clone https://github.com/yourusername/newsnow.git
+git clone https://github.com/ashmitachaturvedi/newsnow.git
 
 Install dependencies:
 
@@ -132,4 +132,4 @@ JWT_SECRET=your_secret_key
 
 Ashmita Chaturvedi
 
-GitHub: https://github.com/yourusername
+GitHub: [ashmitachaturvedi](https://github.com/ashmitachaturvedi)
