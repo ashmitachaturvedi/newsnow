@@ -65,11 +65,11 @@ app.get(
   }
 );
 
-app.get("/api/rss-news", async (req, res) => {
-  try {
-    const bbc = await parser.parseURL(
-      "https://feeds.bbci.co.uk/news/rss.xml"
-    );
+// app.get("/api/rss-news", async (req, res) => {
+//   try {
+//     const bbc = await parser.parseURL(
+//       "https://feeds.bbci.co.uk/news/rss.xml"
+//     );
     // const hindu = await parser.parseURL(
     //   "https://www.thehindu.com/news/feeder/default.rss"
     // );
@@ -78,41 +78,66 @@ app.get("/api/rss-news", async (req, res) => {
     //   "https://feeds.feedburner.com/ndtvnews-top-stories"
     // );
 
-    const rawArticles = [
-      ...bbc.items,
-      ...hindu.items,
-      ...ndtv.items,
-    ].slice(0,50);
-    const articles = await Promise.allSettled(
-      rawArticles.map(async(item) => ({
-        title: item.title,
-        description:
+    // const rawArticles = [
+    //   ...bbc.items,
+    //   ...hindu.items,
+    //   ...ndtv.items,
+    // ].slice(0,50);
+    // const articles = await Promise.allSettled(
+    //   rawArticles.map(async(item) => ({
+    //     title: item.title,
+    //     description:
+    //     item.contentSnippet ||
+    //     item.content ||
+    //     "No desciption available",
+    //     url: item.link,
+    //     image:await getArticleImage(
+    //       item.link
+    //     ),
+    //     pubDate:item.pubDate,
+    //   }))
+    // );
+//     const finalArticles = articles
+//     .filter((a) => a.status === "fulfilled")
+//     .map((a) => a.value);
+
+//     articles.sort(
+//       (a, b) =>
+//         new Date(b.pubDate) -
+//         new Date(a.pubDate)
+//     );
+
+//     res.json({
+//       articles:finalArticles,
+//     });
+//   } catch (error) {
+//     console.log(error);
+
+//     res.status(500).json({
+//       message: error.message,
+//     });
+//   }
+// });
+
+app.get("/api/rss-news", async (req, res) => {
+  try {
+    const bbc = await parser.parseURL(
+      "https://feeds.bbci.co.uk/news/rss.xml"
+    );
+
+    const articles = bbc.items.slice(0, 20).map((item) => ({
+      title: item.title,
+      description:
         item.contentSnippet ||
-        item.content ||
-        "No desciption available",
-        url: item.link,
-        image:await getArticleImage(
-          item.link
-        ),
-        pubDate:item.pubDate,
-      }))
-    );
-    const finalArticles = articles
-    .filter((a) => a.status === "fulfilled")
-    .map((a) => a.value);
+        "No description available",
+      url: item.link,
+      image: null,
+      pubDate: item.pubDate,
+    }));
 
-    articles.sort(
-      (a, b) =>
-        new Date(b.pubDate) -
-        new Date(a.pubDate)
-    );
-
-    res.json({
-      articles:finalArticles,
-    });
+    res.json({ articles });
   } catch (error) {
     console.log(error);
-
     res.status(500).json({
       message: error.message,
     });

@@ -12,7 +12,7 @@ function Home() {
   const[loading,setLoading] = useState(false);
   const[error,setError] = useState("");
   const[lastUpdated,setLastUpdated] = useState("");
-
+<h2>Total news : {news.length}</h2>
   useEffect(() => {
     const fetchNews = async () => {
       try{
