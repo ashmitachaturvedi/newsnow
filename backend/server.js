@@ -70,13 +70,13 @@ app.get("/api/rss-news", async (req, res) => {
     const bbc = await parser.parseURL(
       "https://feeds.bbci.co.uk/news/rss.xml"
     );
-    const hindu = await parser.parseURL(
-      "https://www.thehindu.com/news/feeder/default.rss"
-    );
+    // const hindu = await parser.parseURL(
+    //   "https://www.thehindu.com/news/feeder/default.rss"
+    // );
 
-    const ndtv = await parser.parseURL(
-      "https://feeds.feedburner.com/ndtvnews-top-stories"
-    );
+    // const ndtv = await parser.parseURL(
+    //   "https://feeds.feedburner.com/ndtvnews-top-stories"
+    // );
 
     const rawArticles = [
       ...bbc.items,
@@ -310,17 +310,37 @@ app.post("/api/login", async (req, res) => {
 
 app.get("/api/india", async (req, res) => {
   try {
-    const hindu = await parser.parseURL(
-      "https://www.thehindu.com/news/feeder/default.rss"
+    let articles = [];
+
+    try {
+      const hindu = await parser.parseURL(
+        "https://www.thehindu.com/news/feeder/default.rss"
+      );
+      articles.push(...formatArticles(hindu.items));
+    } catch (err) {
+      console.log("Hindu RSS failed");
+    }
+
+    try {
+      const ndtv = await parser.parseURL(
+        "https://feeds.feedburner.com/ndtvnews-top-stories"
+      );
+      articles.push(...formatArticles(ndtv.items));
+    } catch (err) {
+      console.log("NDTV RSS failed");
+    }
+
+    articles.sort(
+      (a, b) =>
+        new Date(b.pubDate) - new Date(a.pubDate)
     );
 
     res.json({
-      articles: formatArticles(hindu.items),
+      articles: articles.slice(0, 50),
     });
   } catch (error) {
-    console.error(error);
     res.status(500).json({
-      error: String(error),
+      message: error.message,
     });
   }
 });
