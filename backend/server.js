@@ -310,41 +310,17 @@ app.post("/api/login", async (req, res) => {
 
 app.get("/api/india", async (req, res) => {
   try {
-    console.log("Fetching hindu news....")
     const hindu = await parser.parseURL(
       "https://www.thehindu.com/news/feeder/default.rss"
     );
-    console.log(hindu.items.length);
-
-      console.log("Fetching NDTV...");
-
-    const ndtv = await parser.parseURL(
-      "https://feeds.feedburner.com/ndtvnews-top-stories"
-    );
-    console.log("NDTV items:", ndtv.items.length);
-
-    
-
-    const articles = [
-      ...formatArticles(hindu.items),
-      ...formatArticles(ndtv.items),
-    ];
-
-    articles.sort(
-      (a, b) =>
-        new Date(b.pubDate) -
-        new Date(a.pubDate)
-    );
 
     res.json({
-      articles: articles.slice(0, 50),
+      articles: formatArticles(hindu.items),
     });
   } catch (error) {
     console.error(error);
-
     res.status(500).json({
-      message: error.message  || "Unknown error ",
-      error:String(error),
+      error: String(error),
     });
   }
 });
