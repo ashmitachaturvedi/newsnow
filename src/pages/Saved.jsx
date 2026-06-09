@@ -12,7 +12,7 @@ function Saved() {
         const token = localStorage.getItem("token");
 
         const response = await fetch(
-          "https:/newsnow-68z3.onrender.com/api/bookmarks",
+          "https://newsnow-68z3.onrender.com/api/bookmarks",
           {
             headers: {
       authorization: token,
