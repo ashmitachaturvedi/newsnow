@@ -1,125 +1,135 @@
 # 📰 NewsNow
 
-A modern news aggregation platform built with React, Node.js, Express, MongoDB, and JWT Authentication.
+NewsNow is a full-stack news aggregation platform that delivers live news updates from multiple RSS sources. Users can explore category-based news, search articles, create accounts, and save bookmarks for later reading.
 
 ## 🚀 Live Demo
 
-Frontend: https://newsnow-7oq1.vercel.app
-Backend: https://newsnow-68z3.onrender.com
+https://your-live-url.com
+
+## 📸 Screenshots
+
+### Home Page
+
+![Home Page](screenshots/Home.png)
+
+### India News
+
+![Home Page](screenshots/India.png)
+
+### Login Page
+
+![Home Page](screenshots/login.png)
 
 ## ✨ Features
 
-* 🔐 JWT Authentication (Login & Signup)
-* 📰 RSS News Aggregation
-* 🔍 Search News Articles
-* ⭐ Save & Manage Bookmarks
-* 🛡 Protected Routes
-* 📱 Responsive UI
-* ☁️ MongoDB Atlas Database
-* 🚀 Render Backend Deployment
-* ⚡ Vercel Frontend Deployment
+* Live news aggregation using RSS feeds
+* Category-wise news browsing
+
+  * India
+  * World
+  * UPSC
+  * NTA
+* Search news articles
+* User authentication (Register/Login)
+* Save and manage bookmarks
+* Responsive design
+* Automatic news updates
 
 ## 🛠 Tech Stack
 
 ### Frontend
 
 * React.js
-* React Router DOM
-* CSS
+* React Router
+* CSS3
 
 ### Backend
 
 * Node.js
 * Express.js
-* JWT Authentication
-* Bcrypt.js
-* RSS Parser
 
 ### Database
 
-* MongoDB Atlas
-* Mongoose
-
-## 📂 Project Structure
-
-backend/
-
-* config/
-* middleware/
-* model/
-* server.js
-
-src/
-
-* components/
-* pages/
-* services/
-
-## 🔑 Authentication Flow
-
-1. User Signup
-2. Password Hashing using Bcrypt
-3. User Login
-4. JWT Token Generation
-5. Protected Routes
-6. Bookmark Management
-
-## 📸 Features Preview
-
-### Home Page
-
-* Live RSS News Feed
-* Search Functionality
+* MongoDB
 
 ### Authentication
 
-* Login Validation
-* Signup Validation
-* JWT Based Authentication
+* JWT (JSON Web Tokens)
 
-### Bookmarks
+### News Sources
 
-* Save Articles
-* Remove Saved Articles
-* User-Specific Bookmarks
+* RSS Feeds
+* RSS Parser
+
+### Deployment
+
+* Render
+
+## 🏗 Project Architecture
+
+Frontend (React)
+↓
+REST APIs (Express)
+↓
+RSS Aggregation Layer
+↓
+MongoDB Database
+
+## 📂 Folder Structure
+
+client/
+├── src/
+│ ├── pages/
+│ ├── components/
+│ ├── services/
+│ └── App.jsx
+
+server/
+├── routes/
+├── middleware/
+├── models/
+└── server.js
 
 ## ⚙️ Installation
 
 Clone the repository:
 
-```bash
-git clone https://github.com/ashmitachaturvedi/newsnow.git
-```
+git clone https://github.com/yourusername/newsnow.git
 
 Install dependencies:
 
-```bash
+cd client
 npm install
-```
 
-Run frontend:
+cd ../server
+npm install
 
-```bash
+Start frontend:
+
 npm run dev
-```
 
-Run backend:
+Start backend:
 
-```bash
-node server.js
-```
+npm start
 
-## 🌟 Future Improvements
+## 🔐 Environment Variables
 
-* Dark / Light Mode
-* User Profile Page
-* Real News Image Extraction
-* Toast Notifications
-* Forgot Password Feature
+Create a .env file:
+
+MONGO_URI=your_mongodb_uri
+
+JWT_SECRET=your_secret_key
+
+## 🎯 Future Improvements
+
+* AI-powered article summaries
+* Dark/Light mode
+* Trending news section
+* Personalized recommendations
+* Multi-language support
 
 ## 👩‍💻 Author
 
 Ashmita Chaturvedi
 
-Built as a full-stack project using React, Express, MongoDB, and JWT Authentication.
-
+GitHub: https://github.com/yourusername
