@@ -4,7 +4,7 @@ NewsNow is a full-stack news aggregation platform that delivers live news update
 
 ## 🚀 Live Demo
 
-https://your-live-url.com
+https://newsnow-7oq1.vercel.app
 
 ## 📸 Screenshots
 
@@ -14,11 +14,11 @@ https://your-live-url.com
 
 ### India News
 
-![Home Page](screenshots/India.png)
+![India Page](screenshots/India.png)
 
 ### Login Page
 
-![Home Page](screenshots/login.png)
+![Login Page](screenshots/login.png)
 
 ## ✨ Features
 
