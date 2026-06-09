@@ -4,7 +4,7 @@ NewsNow is a full-stack news aggregation platform that delivers live news update
 
 ## 🚀 Live Demo
 
-https://newsnow-7oq1.vercel.app
+[🚀 Open NewsNow](https://newsnow-70q1.vercel.app)
 
 ## 📸 Screenshots
 
