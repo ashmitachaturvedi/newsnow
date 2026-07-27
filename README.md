@@ -64,72 +64,129 @@ NewsNow is a full-stack news aggregation platform that delivers live news update
 ### Deployment
 
 * Render
-
-## 🏗 Project Architecture
-
+🏗 Project Architecture
+HTTP Requests
+REST API Calls
+Fetch & Parse
+Pull Feeds
+Read / Write
+Verify Token
+👤 User Browser
+⚛️ React FrontendVercel
+🚂 Express BackendRender
+📡 RSS Aggregation LayerRSS Parser
+🌐 External RSS SourcesIndia / World / UPSC / NTA
+🍃 MongoDBUsers, Bookmarks, Articles
+🔐 JWT Auth Middleware
+🔄 How News Aggregation Works
+MongoDB
+RSS Sources
+RSS Parser
+Backend (Express)
 Frontend (React)
-↓
-REST APIs (Express)
-↓
-RSS Aggregation Layer
-↓
-MongoDB Database
-
-## 📂 Folder Structure
-
+User
+MongoDB
+RSS Sources
+RSS Parser
+Backend (Express)
+Frontend (React)
+User
+Opens "India" / "World" / "UPSC" / "NTA" tab
+GET /api/news/:category
+Request latest feed
+Fetch RSS XML
+Return raw feed data
+Parsed articles (JSON)
+Cache / store latest articles
+Return articles list
+Render news cards
+🔐 Authentication Flow
+No
+Yes
+Valid
+Invalid/Expired
+User submitsLogin/Register form
+ValidCredentials?
+❌ Return Error
+Generate JWT Token
+Send Token to Client
+Store Tokenin Browser
+Attach Token toFuture API Requests
+MiddlewareVerifies Token
+✅ Access Protected RoutesBookmarks, Profile
+🔖 Bookmark Flow
+No
+Yes
+User clicks Save/Bookmarkicon
+Logged In?
+Redirect to Login
+POST /api/bookmarks
+Backend verifies JWT
+Save article referenceto MongoDB
+Update UI:Bookmark marked as saved
+User views saved articlesin Bookmarks page
+📂 Folder Structure
+REST API
+server/
+routes/
+middleware/
+models/
+server.js
+client/
+src/
+pages/
+components/
+services/
+App.jsx
+<details> <summary>📁 Plain text folder structure (click to expand)</summary>
 client/
 ├── src/
-│ ├── pages/
-│ ├── components/
-│ ├── services/
-│ └── App.jsx
-
+│   ├── pages/
+│   ├── components/
+│   ├── services/
+│   └── App.jsx
 server/
 ├── routes/
 ├── middleware/
 ├── models/
 └── server.js
-
-## ⚙️ Installation
+</details>
+⚙️ Installation
 
 Clone the repository:
 
+bash
 git clone https://github.com/ashmitachaturvedi/newsnow.git
 
 Install dependencies:
 
+bash
 cd client
 npm install
-
 cd ../server
 npm install
 
 Start frontend:
 
+bash
 npm run dev
 
 Start backend:
 
+bash
 npm start
+🔐 Environment Variables
 
-## 🔐 Environment Variables
-
-Create a .env file:
+Create a .env file in server/:
 
 MONGO_URI=your_mongodb_uri
-
 JWT_SECRET=your_secret_key
+🎯 Future Improvements
+ AI-powered article summaries
+ Dark/Light mode
+ Trending news section
+ Personalized recommendations
+ Multi-language support
+👩‍💻 Author
 
-## 🎯 Future Improvements
-
-* AI-powered article summaries
-* Dark/Light mode
-* Trending news section
-* Personalized recommendations
-* Multi-language support
-
-## 👩‍💻 Author
-
-Ashmita Chaturvedi
-
-GitHub: [ashmitachaturvedi](https://github.com/ashmitachaturvedi)
+Ashmita Chaturvedi GitHub: ashmitachaturvedi
